@@ -3,11 +3,15 @@ package ru.job4j.job4j_order;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.web.client.RestTemplate;
 
 import static java.lang.System.out;
 
 @SpringBootApplication
+@Configuration
+@EnableKafka
 public class Job4jOrderApplication {
 
     @Bean
