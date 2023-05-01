@@ -3,6 +3,7 @@ package ru.job4j.job4j_order.service;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ru.job4j.job4j_order.model.Order;
+import ru.job4j.job4j_order.model.OrderDTO;
 import ru.job4j.job4j_order.model.RequestOrderDTO;
 import ru.job4j.job4j_order.repository.OrderRepository;
 
@@ -20,9 +21,14 @@ public class OrderService {
     }
 
     @Transactional
-    public RequestOrderDTO create(Order order) {
-        var savedOrder = repository.save(order);
-        return new RequestOrderDTO(savedOrder.getId(), dishService.findById("3").getId());
+    public RequestOrderDTO create(OrderDTO order) {
+        var savedOrder = repository.save(order.getOrder());
+        return new RequestOrderDTO(savedOrder.getId(), order.getDish().getId());
+    }
+
+    @Transactional
+    public void updateOrder(Order order) {
+        repository.save(order);
     }
 
     public void delete(Order order) {

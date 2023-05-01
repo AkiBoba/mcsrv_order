@@ -37,4 +37,9 @@ public class Order {
     public Order(Integer id) {
         this.id = id;
     }
+
+    public Order(Customer customer, List<Product> products) {
+        this.customer = customer;
+        this.products = products;
+    }
 }
