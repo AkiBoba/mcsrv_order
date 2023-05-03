@@ -2,26 +2,26 @@ package ru.job4j.job4j_order.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.job4j_order.model.*;
 import ru.job4j.job4j_order.service.DishService;
+import ru.job4j.job4j_order.service.KitchenService;
+import ru.job4j.job4j_order.service.NotificationService;
 import ru.job4j.job4j_order.service.OrderService;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KitchenService kitchenService;
+    private final NotificationService notificationService;
     private final OrderService service;
     private final DishService dishService;
-
-    public OrderController(KafkaTemplate<String, String> kafkaTemplate, OrderService service, DishService dishService) {
-        this.kafkaTemplate = kafkaTemplate;
-        this.service = service;
-        this.dishService = dishService;
-    }
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -42,11 +42,8 @@ public class OrderController {
         order.setStatus(new Status(1));
         RequestOrderDTO dto = service.create(orderDTO);
         dishService.insertInDishOrder(order.getId(), orderDTO.getDish().getId());
-        String orderStatus = OBJECT_MAPPER.writeValueAsString(new OrderStatus(order.getId(), order.getStatus().getId()));
-        kafkaTemplate.send("preorder", orderStatus);
-        String requestDTO = OBJECT_MAPPER.writeValueAsString(dto);
-        kafkaTemplate.send("cooked_order", requestDTO);
-
+        notificationService.sendOrderStatus(new OrderStatus(order.getId(), order.getStatus().getId()));
+        kitchenService.sendOrder(dto);
     }
 
     @PostMapping("/delete")
@@ -59,7 +56,6 @@ public class OrderController {
         Order order = service.getById(orderId);
         order.setStatus(status);
         service.updateOrder(order);
-        String orderStatus = OBJECT_MAPPER.writeValueAsString(new OrderStatus(order.getId(), order.getStatus().getId()));
-        kafkaTemplate.send("preorder", orderStatus);
+        notificationService.sendOrderStatus(new OrderStatus(order.getId(), order.getStatus().getId()));
     }
 }
