@@ -1,24 +1,20 @@
 package ru.job4j.job4j_order.service;
 
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.job4j_order.model.Order;
-import ru.job4j.job4j_order.model.OrderDTO;
-import ru.job4j.job4j_order.model.RequestOrderDTO;
+import ru.job4j.job4j_order.model.DTO.OrderDTO;
+import ru.job4j.job4j_order.model.DTO.RequestOrderDTO;
 import ru.job4j.job4j_order.repository.OrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class OrderService {
-    private final OrderRepository repository;
-    private final DishService dishService;
-
-    public OrderService(OrderRepository repository, DishService dishService) {
-        this.repository = repository;
-        this.dishService = dishService;
-    }
+    private OrderRepository repository;
 
     @Transactional
     public RequestOrderDTO create(OrderDTO order) {

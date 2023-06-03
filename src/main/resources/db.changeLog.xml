@@ -14,4 +14,5 @@
     <include file="db/scripts/006_ddl_create_order_product_table.sql" relativeToChangelogFile="true"/>
     <include file="db/scripts/008_ddl_insert_customer_table.sql" relativeToChangelogFile="true"/>
     <include file="db/scripts/009_ddl_insert_product_table.sql" relativeToChangelogFile="true"/>
+    <include file="db/scripts/010_ddl_create_dish_order_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

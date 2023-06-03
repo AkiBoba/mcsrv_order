@@ -3,7 +3,7 @@ package ru.job4j.job4j_order.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import ru.job4j.job4j_order.model.RequestOrderDTO;
+import ru.job4j.job4j_order.model.DTO.RequestOrderDTO;
 
 @Service
 @RequiredArgsConstructor
