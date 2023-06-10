@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=job4j_order
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./db/shortcut/data:/var/lib/postgresql/data
+    restart: always
+  lb:
+    build:
+      context: .
+      dockerfile: DockerfileB
+    environment:
+      - JDBC_URL=jdbc:postgresql://db:5432/job4j_order
+      - JDBC_USERNAME=postgres
+      - JDBC_PASSWORD=password
+      - JDBC_DRIVER=org.postgresql.Driver
+    container_name: lb
+    depends_on:
+      - db
+  job4j_dish:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - spring.datasource.url=jdbc:postgresql://db:5432/job4j_order
+      - spring.datasource.username=postgres
+      - spring.datasource.password=password
+      - spring.datasource.driver-class-name=org.postgresql.Driver
+    ports:
+      - "127.0.0.1:8081:8081"
+    container_name: job4j_order
+    depends_on:
+      - db
+      - lb
