@@ -25,11 +25,11 @@ function save(dishes) {
         complete: function(data){
             console.log(data.status);
             if (data.status === 200) {
-                alert("OK");
+                alert(data.responseText);
             }
             else {
                 console.log("error");
-                alert("Name must be at least 5 characters long. \n You must choose at least 1 ingredient");
+                alert("Error");
             }
         }
     });
