@@ -10,6 +10,7 @@
     </parent>
     <groupId>job4j</groupId>
     <artifactId>job4j_order</artifactId>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>job4j_order</name>
     <description>job4j_order</description>
