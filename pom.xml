@@ -163,7 +163,7 @@
         <profile>
             <id>test</id>
             <properties>
-                <liquibase.changeLogFile>db.changelog.xml</liquibase.changeLogFile>
+                <liquibase.changeLogFile>db.changeLog.xml</liquibase.changeLogFile>
                 <liquibase.url>jdbc:h2:./testdb;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;</liquibase.url>
                 <liquibase.username></liquibase.username>
                 <liquibase.password></liquibase.password>
@@ -175,7 +175,7 @@
         <profile>
             <id>production</id>
             <properties>
-                <liquibase.changeLogFile>db.changelog.xml</liquibase.changeLogFile>
+                <liquibase.changeLogFile>db.changeLog.xml</liquibase.changeLogFile>
                 <liquibase.url>jdbc:postgresql://127.0.0.1:5432/job4j_order</liquibase.url>
                 <liquibase.username>postgres</liquibase.username>
                 <liquibase.password>password</liquibase.password>
@@ -184,7 +184,7 @@
         <profile>
             <id>docker</id>
             <properties>
-                <liquibase.changeLogFile>db.changelog.xml</liquibase.changeLogFile>
+                <liquibase.changeLogFile>db.changeLog.xml</liquibase.changeLogFile>
                 <liquibase.url>${docker_db_url_jdbc}</liquibase.url>
                 <liquibase.username>postgres</liquibase.username>
                 <liquibase.password>password</liquibase.password>
