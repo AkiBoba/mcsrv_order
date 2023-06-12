@@ -2,7 +2,7 @@ version: "3.9"
 services:
   db:
     image: postgres
-    container_name: db
+    container_name: db_order
     environment:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
@@ -20,7 +20,7 @@ services:
       - JDBC_USERNAME=postgres
       - JDBC_PASSWORD=password
       - JDBC_DRIVER=org.postgresql.Driver
-    container_name: lb
+    container_name: lb_order
     depends_on:
       - db
   job4j_order:
