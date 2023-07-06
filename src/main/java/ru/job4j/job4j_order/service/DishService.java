@@ -18,10 +18,12 @@ public class DishService {
 
     private final RestTemplate client;
     private final KafkaTemplate<String, DishOrder> kafkaTemplate;
+    private final DishesFeignClients feignClients;
 
-    public DishService(RestTemplate client, KafkaTemplate<String, DishOrder> kafkaTemplate) {
+    public DishService(RestTemplate client, KafkaTemplate<String, DishOrder> kafkaTemplate, DishesFeignClients feignClients) {
         this.client = client;
         this.kafkaTemplate = kafkaTemplate;
+        this.feignClients = feignClients;
     }
 
     public void sendDishOrder(DishOrder dishOrder) {
@@ -31,6 +33,7 @@ public class DishService {
     }
 
     public List getAllDishes() {
-        return client.getForEntity(url, List.class).getBody();
+//        return client.getForEntity(url, List.class).getBody();
+        return feignClients.getAll();
     }
 }

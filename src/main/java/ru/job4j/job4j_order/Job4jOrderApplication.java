@@ -2,6 +2,7 @@ package ru.job4j.job4j_order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -19,6 +20,7 @@ import static java.lang.System.out;
 @SpringBootApplication
 @Configuration
 @EnableKafka
+@EnableFeignClients
 public class Job4jOrderApplication {
     private static String loadSysEnvIfNullThenConfig(String sysEnv, String key, Properties config) {
     String value = System.getenv(sysEnv);
